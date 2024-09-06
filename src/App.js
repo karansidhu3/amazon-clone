@@ -1,13 +1,19 @@
-import React from "react";
-import { Header } from "./index-components/Header.js";
-import { Body } from "./index-components/Body.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Amazon} from "./pages/Amazon.js";
+import { Checkout } from "./pages/Checkout";
 import "./styles/general.css"
 
-export function App(){
+
+export default function App(){
   return (
     <div>
-      <Header />
-      <Body />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Amazon />} />
+          <Route path="/amazon" element={<Amazon />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }

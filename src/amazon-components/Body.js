@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import {cart} from '../data/cart.js'
 import { products, loadProductsFetch } from '../data/products.js';
 import "../styles/main-page/amazon.css";
 
 export function Body() {
   // State to store the products
   const [productList, setProductList] = useState([]);
+  const [selectedQuantities, setSelectedQuantities] = useState({});
 
   // Fetch the products when the component mounts
   useEffect(() => {
@@ -13,6 +15,19 @@ export function Body() {
         setProductList(products);
       });
   }, []); // Empty dependency array means this runs only once on mount
+
+
+  const handleAddToCart = (productId) => {
+    const quantity = selectedQuantities[productId] || 1;
+    cart.addToCart(productId, parseInt(quantity, 10)); // Add product to cart
+  }
+
+  const handleQuantityChange = (productId, quantity) => {
+    setSelectedQuantities(prev => ({
+      ...prev,
+      [productId]: quantity
+    }));
+  };
 
   return (
     <div className="main">
@@ -39,9 +54,14 @@ export function Body() {
             </div>
 
             <div className="product-quantity-container">
-              <select defaultValue="1">
+              <select 
+              defaultValue="1"
+              onChange={(e) => handleQuantityChange(product.id, e.target.value)}
+              >
                 {[...Array(10)].map((_, index) => (
-                  <option key={index} value={index + 1}>{index + 1}</option>
+                  <option key={index} value={index + 1}>
+                    {index + 1}
+                  </option>
                 ))}
               </select>
             </div>
@@ -55,7 +75,7 @@ export function Body() {
               Added
             </div>
 
-            <button className="add-to-cart-button button-primary js-add-to-cart" data-product-id={product.id}>
+            <button onClick={() => handleAddToCart(product.id)} className="add-to-cart-button button-primary">
               Add to Cart
             </button>
           </div>
