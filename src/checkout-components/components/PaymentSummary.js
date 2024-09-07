@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { cart } from "../../data/cart";
 import { getProduct } from "../../data/products";
 import { getDeliveryOption } from "../../data/deliveryOptions";
@@ -6,10 +6,17 @@ import formatCurrency from "../../utils/money";
 
 
 export function PaymentSummary() {
-  
+  const [productCosts, setProductCosts] = useState(0);
+  const [shippingCosts, setShippingCosts] = useState(0);
+
+  const handlePriceChange = () => {
+    
+  }
 
 
   return (
+
+
     <div>
       <div className="payment-summary-title">
         Order Summary

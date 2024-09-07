@@ -8,6 +8,9 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 export function OrderSummary() {
   const [cartList, setCartList] = useState([]);
 
+  // State to keep track of selected delivery options
+  const [selectedDeliveryOptions, setSelectedDeliveryOptions] = useState({});
+
   useEffect(() => {
     loadProductsFetch()
       .then(() => {
@@ -15,12 +18,19 @@ export function OrderSummary() {
       });
   }, []);
 
+  // Handler to update selected delivery option for a product
+  const handleDeliveryOptionChange = (productId, optionId) => {
+    setSelectedDeliveryOptions(prevOptions => ({
+      ...prevOptions,
+      [productId]: optionId,
+    }));
+  };
+
   return (
     <div>
       {cartList.map((cartItem) => {
         const productId = cartItem.productId;
         const matchingProduct = getProduct(productId);
-        console.log(matchingProduct);
 
         const deliveryOptionId = cartItem.deliveryOptionId;
         const deliveryOption = getDeliveryOption(deliveryOptionId);
@@ -45,19 +55,16 @@ export function OrderSummary() {
                 <div className="product-price">
                   {formatCurrency(matchingProduct.priceCents)}
                 </div>
-                <div className={`product-quantity js-product-quantity-${matchingProduct.id}`}>
-                  <div className={`update-container js-update-container-${matchingProduct.id}`}>
+                <div className={`product-quantity`}>
+                  <div className={`update-container`}>
                     <span>
-                      Quantity: <span className={`quantity-label js-quantity-label-${matchingProduct.id}`}>{cartItem.quantity}</span>
+                      Quantity: <span className={`quantity-label`}>{cartItem.quantity}</span>
                     </span>
-                    <span className={`update-quantity-link link-primary js-update-quantity js-update-quantity-${matchingProduct.id}`}
-                      data-product-id={matchingProduct.id}
-                      data-cart-item-quantity={cartItem.quantity}>
+                    <span className={`update-quantity-link link-primary`}>
                       Update
                     </span>
                   </div>
-                  <span className={`delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}`}
-                    data-product-id={matchingProduct.id}>
+                  <span className={`delete-quantity-link link-primary`} data-product-id={matchingProduct.id}>
                     Delete
                   </span>
                 </div>
@@ -74,23 +81,27 @@ export function OrderSummary() {
                     const dateString = deliveryDate.format('dddd, MMMM D');
                     const priceString = deliveryOption.priceCents === 0 ? 'FREE Shipping' : `$${formatCurrency(deliveryOption.priceCents)} - Shipping`;
 
-                    return(
-                      <div className="delivery-option">
-                      <input 
-                        type="radio"
-                        className="delivery-option-input"
-                        name="delivery-option-${matchingItem.id}" 
-                      />
-                      <div>
-                        <div className="delivery-option-date">
-                          {dateString}
-                        </div>
-                        <div className="delivery-option-price">
-                          {priceString}
-                        </div>
+                    return (
+                      <div key={deliveryOption.id} className="delivery-option">
+                        <input 
+                          type="radio"
+                          className="delivery-option-input"
+                          name={`delivery-option-${productId}`} // Ensure radio inputs are grouped by product
+                          id={`delivery-option-${productId}-${deliveryOption.id}`}
+                          value={deliveryOption.id}
+                          checked={selectedDeliveryOptions[productId] === deliveryOption.id}
+                          onChange={() => handleDeliveryOptionChange(productId, deliveryOption.id)}
+                        />
+                        <label htmlFor={`delivery-option-${productId}-${deliveryOption.id}`}>
+                          <div className="delivery-option-date">
+                            {dateString}
+                          </div>
+                          <div className="delivery-option-price">
+                            {priceString}
+                          </div>
+                        </label>
                       </div>
-                    </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
