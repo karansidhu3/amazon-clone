@@ -40,7 +40,7 @@ class Cart{
     else{ // else, add the new item to cart
       this.cartItems.push({
         productId: productId,
-        quantity: 1,
+        quantity: quantity,
         deliveryOptionId: '1'
       });
     }

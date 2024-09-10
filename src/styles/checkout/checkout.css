@@ -1,4 +1,4 @@
-.main {
+.checkout-main {
   max-width: 1100px;
   padding-left: 30px;
   padding-right: 30px;
@@ -33,7 +33,7 @@
 }
 
 @media (max-width: 1000px) {
-  .main {
+  .checkout-main {
     max-width: 500px;
   }
 
@@ -92,7 +92,7 @@
   }
 }
 
-.product-image {
+.checkout-product-image {
   max-width: 100%;
   max-height: 120px;
 
@@ -104,12 +104,12 @@
   margin-right: auto;
 }
 
-.product-name {
+.checkout-product-name {
   font-weight: 700;
   margin-bottom: 8px;
 }
 
-.product-price {
+.checkout-product-price {
   color: rgb(177, 39, 4);
   font-weight: 700;
   margin-bottom: 5px;

@@ -16,8 +16,7 @@ export function Body() {
       });
   }, []); // Empty dependency array means this runs only once on mount
 
-
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = (productId) => {    
     const quantity = selectedQuantities[productId] || 1;
     cart.addToCart(productId, parseInt(quantity, 10)); // Add product to cart
   }
@@ -28,6 +27,8 @@ export function Body() {
       [productId]: quantity
     }));
   };
+
+  console.log(selectedQuantities)
 
   return (
     <div className="main">

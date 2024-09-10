@@ -23,7 +23,7 @@ export function Header(){
     <div className="amazon-header">
 
       <div className="amazon-header-left-section">
-        <a href="amazon.html" className="header-link">
+        <a href="amazon" className="header-link">
           <img className="amazon-logo" src="images/amazon-logo-white.png" alt="?"/>
           <img className="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png" alt="?"/>
         </a>

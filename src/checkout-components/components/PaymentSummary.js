@@ -3,6 +3,7 @@ import { cart } from "../../data/cart";
 import { getProduct } from "../../data/products";
 import { getDeliveryOption } from "../../data/deliveryOptions";
 import formatCurrency from "../../utils/money";
+import { OrderSummary } from "./OrderSummary";
 
 
 export function PaymentSummary() {
@@ -10,13 +11,12 @@ export function PaymentSummary() {
   const [shippingCosts, setShippingCosts] = useState(0);
 
   const handlePriceChange = () => {
-    
+    OrderSummary();
+    console.log('hi');
   }
 
 
   return (
-
-
     <div>
       <div className="payment-summary-title">
         Order Summary
@@ -47,8 +47,7 @@ export function PaymentSummary() {
         <div className="payment-summary-money">$${75}</div>
       </div>
 
-      <button className="place-order-button button-primary
-      js-place-order">
+      <button className="place-order-button button-primary">
         Place your order
       </button>
     </div>

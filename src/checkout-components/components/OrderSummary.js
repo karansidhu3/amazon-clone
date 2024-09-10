@@ -22,9 +22,16 @@ export function OrderSummary() {
   const handleDeliveryOptionChange = (productId, optionId) => {
     setSelectedDeliveryOptions(prevOptions => ({
       ...prevOptions,
-      [productId]: optionId,
+      [productId]: optionId
     }));
   };
+
+  const deleteProduct = (productId) => {
+    cart.removeFromCart(productId);
+    setCartList(cart.cartItems);
+  }
+
+  console.log(selectedDeliveryOptions)
 
   return (
     <div>
@@ -46,14 +53,14 @@ export function OrderSummary() {
             </div>
 
             <div className="cart-item-details-grid">
-              <img className="product-image" src={matchingProduct.image} alt={matchingProduct.name} />
+              <img className="checkout-product-image" src={matchingProduct.image} alt={matchingProduct.name} />
 
               <div className="cart-item-details">
-                <div className="product-name">
+                <div className="checkout-product-name">
                   {matchingProduct.name}
                 </div>
-                <div className="product-price">
-                  {formatCurrency(matchingProduct.priceCents)}
+                <div className="checkout-product-price">
+                  {matchingProduct.getPrice()}
                 </div>
                 <div className={`product-quantity`}>
                   <div className={`update-container`}>
@@ -64,7 +71,7 @@ export function OrderSummary() {
                       Update
                     </span>
                   </div>
-                  <span className={`delete-quantity-link link-primary`} data-product-id={matchingProduct.id}>
+                  <span className={`delete-quantity-link link-primary`} onClick={() => {deleteProduct(matchingProduct.id)}}>
                     Delete
                   </span>
                 </div>
