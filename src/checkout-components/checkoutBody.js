@@ -50,6 +50,10 @@ export function CheckoutBody(){
 
   const updateProductQuantity = (productId, newQuantity) => {
     cart.updateQuantity(productId, parseInt(newQuantity, 10));
+
+    if(parseInt(newQuantity, 10) == 0){
+      deleteProduct(productId)
+    }
     setCartList(cart.cartItems);
     calculateProductCosts();
   };
