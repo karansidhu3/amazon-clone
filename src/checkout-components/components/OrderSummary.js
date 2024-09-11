@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { cart } from "../../data/cart.js";
-import { getProduct, loadProductsFetch } from "../../data/products.js";
+import React from "react";
+import { getProduct } from "../../data/products.js";
 import formatCurrency from "../../utils/money";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';

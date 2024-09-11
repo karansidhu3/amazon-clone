@@ -1,11 +1,8 @@
-import React, {useState, useEffect} from "react";
-import { cart } from "../../data/cart";
-import { getProduct } from "../../data/products";
-import { getDeliveryOption } from "../../data/deliveryOptions";
+import React from "react";
 import formatCurrency from "../../utils/money";
 
 
-export function PaymentSummary({ productCosts, shippingCosts }) {
+export function PaymentSummary({ productCosts, shippingCosts, cartList }) {
 
   const totalBeforeTax = productCosts + shippingCosts;
   const estimatedTax = totalBeforeTax * 0.1;
@@ -19,7 +16,7 @@ export function PaymentSummary({ productCosts, shippingCosts }) {
       </div>
 
       <div className="payment-summary-row">
-        <div>Items (3):</div>
+        <div>Items ({cartList.length}):</div>
         <div className="payment-summary-money">${formatCurrency(productCosts)}</div>
       </div>
 

@@ -5,7 +5,6 @@ import { cart } from "../data/cart";
 import { getProduct, loadProductsFetch } from "../data/products";
 import { getDeliveryOption } from "../data/deliveryOptions";
 import "../styles/checkout/checkout.css";
-import formatCurrency from "../utils/money";
 
 
 
@@ -40,6 +39,10 @@ export function CheckoutBody(){
     setCartList(cart.cartItems);
     calculateShippingCosts();
     calculateProductCosts();
+  }
+
+  const updateProduct = (productId) => {
+    
   }
 
   // Function to calculate product costs
@@ -81,6 +84,7 @@ export function CheckoutBody(){
           <PaymentSummary 
             productCosts={productCosts} 
             shippingCosts={shippingCosts} 
+            cartList={cartList}
           />
         </div>
       </div>
