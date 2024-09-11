@@ -5,33 +5,7 @@ import formatCurrency from "../../utils/money";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
-export function OrderSummary() {
-  const [cartList, setCartList] = useState([]);
-
-  // State to keep track of selected delivery options
-  const [selectedDeliveryOptions, setSelectedDeliveryOptions] = useState({});
-
-  useEffect(() => {
-    loadProductsFetch()
-      .then(() => {
-        setCartList(cart.cartItems);
-      });
-  }, []);
-
-  // Handler to update selected delivery option for a product
-  const handleDeliveryOptionChange = (productId, optionId) => {
-    setSelectedDeliveryOptions(prevOptions => ({
-      ...prevOptions,
-      [productId]: optionId
-    }));
-  };
-
-  const deleteProduct = (productId) => {
-    cart.removeFromCart(productId);
-    setCartList(cart.cartItems);
-  }
-
-  console.log(selectedDeliveryOptions)
+export function OrderSummary({ cartList, selectedDeliveryOptions, handleDeliveryOptionChange, deleteProduct }) {
 
   return (
     <div>
