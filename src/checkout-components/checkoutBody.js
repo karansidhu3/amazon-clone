@@ -11,9 +11,10 @@ import "../styles/checkout/checkout.css";
 export function CheckoutBody(){
 
   const [cartList, setCartList] = useState([]);
-  const [selectedDeliveryOptions, setSelectedDeliveryOptions] = useState({});
   const [productCosts, setProductCosts] = useState(0);
   const [shippingCosts, setShippingCosts] = useState(0);
+  const [isEditing, setIsEditing] = useState({});
+  const [amount, setAmount] = useState({});
 
   // Load cart items on mount
   useEffect(() => {
@@ -21,16 +22,41 @@ export function CheckoutBody(){
       setCartList(cart.cartItems);
       calculateProductCosts();
       calculateShippingCosts();
+
+      const initialAmounts = {};
+      cart.cartItems.forEach((cartItem) => {
+        initialAmounts[cartItem.productId] = cartItem.quantity;
+      });
+      setAmount(initialAmounts);
     });
   }, []);
+
+  const handleButtonClick = (productId) => {
+    setIsEditing((prevIsEditing) => ({
+      ...prevIsEditing,
+      [productId]: !prevIsEditing[productId],
+    }));
+    if (isEditing[productId]) {
+      updateProductQuantity(productId, amount[productId]);
+    }
+  };
+
+  const handleInputChange = (productId, newAmount) => {
+    setAmount((prevAmounts) => ({
+      ...prevAmounts,
+      [productId]: newAmount,
+    }));
+  };
+
+  const updateProductQuantity = (productId, newQuantity) => {
+    cart.updateQuantity(productId, parseInt(newQuantity, 10));
+    setCartList(cart.cartItems);
+    calculateProductCosts();
+  };
 
   // Function to handle delivery option change
   const handleDeliveryOptionChange = (productId, optionId) => {
     cart.updateDeliveryOption(productId, optionId);
-    setSelectedDeliveryOptions((prevOptions) => ({
-      ...prevOptions,
-      [productId]: optionId,
-    }));
     calculateShippingCosts();
   };
 
@@ -39,10 +65,6 @@ export function CheckoutBody(){
     setCartList(cart.cartItems);
     calculateShippingCosts();
     calculateProductCosts();
-  }
-
-  const updateProduct = (productId) => {
-    
   }
 
   // Function to calculate product costs
@@ -65,6 +87,8 @@ export function CheckoutBody(){
     setShippingCosts(totalShippingCost);
   };
 
+  console.log(cart.cartItems);
+
   return (
     <div className="checkout-main">
       <div className="page-title">Review your order</div>
@@ -73,10 +97,13 @@ export function CheckoutBody(){
 
         <div className="order-summary">
           <OrderSummary 
-            cartList={cartList} 
-            selectedDeliveryOptions={selectedDeliveryOptions} 
+            cartList={cartList}
             handleDeliveryOptionChange={handleDeliveryOptionChange} 
             deleteProduct={deleteProduct}
+            isEditing={isEditing}
+            amount={amount}
+            handleButtonClick={handleButtonClick}
+            handleInputChange={handleInputChange}
           />
         </div>
 
@@ -84,7 +111,7 @@ export function CheckoutBody(){
           <PaymentSummary 
             productCosts={productCosts} 
             shippingCosts={shippingCosts} 
-            cartList={cartList}
+            cart={cart}
           />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import formatCurrency from "../../utils/money";
 
 
-export function PaymentSummary({ productCosts, shippingCosts, cartList }) {
+export function PaymentSummary({ productCosts, shippingCosts, cart }) {
 
   const totalBeforeTax = productCosts + shippingCosts;
   const estimatedTax = totalBeforeTax * 0.1;
@@ -16,7 +16,7 @@ export function PaymentSummary({ productCosts, shippingCosts, cartList }) {
       </div>
 
       <div className="payment-summary-row">
-        <div>Items ({cartList.length}):</div>
+        <div>Items ({cart.checkQuantity()}):</div>
         <div className="payment-summary-money">${formatCurrency(productCosts)}</div>
       </div>
 

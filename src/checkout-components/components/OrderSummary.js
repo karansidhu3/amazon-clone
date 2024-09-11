@@ -4,7 +4,7 @@ import formatCurrency from "../../utils/money";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
-export function OrderSummary({ cartList, selectedDeliveryOptions, handleDeliveryOptionChange, deleteProduct }) {
+export function OrderSummary({ cartList, handleDeliveryOptionChange, deleteProduct, isEditing, amount, handleButtonClick, handleInputChange }) {
 
   return (
     <div>
@@ -36,12 +36,25 @@ export function OrderSummary({ cartList, selectedDeliveryOptions, handleDelivery
                   {matchingProduct.getPrice()}
                 </div>
                 <div className={`product-quantity`}>
-                  <div className={`update-container`}>
+                  <div className="update-container">
                     <span>
-                      Quantity: <span className={`quantity-label`}>{cartItem.quantity}</span>
+                      Quantity:{" "}
+                      {isEditing[productId] ? (
+                        <input 
+                          className="input-box"
+                          type="number" 
+                          value={amount[productId]} 
+                          onChange={(e) => handleInputChange(productId, e.target.value)} 
+                        />
+                      ) : (
+                        <span>{cartItem.quantity}</span>
+                      )}
                     </span>
-                    <span className={`update-quantity-link link-primary`}>
-                      Update
+                    <span 
+                      className="update-quantity-link link-primary" 
+                      onClick={() => handleButtonClick(productId)}
+                    >
+                      {isEditing[productId] ? "Save" : "Update"}
                     </span>
                   </div>
                   <span className={`delete-quantity-link link-primary`} onClick={() => {deleteProduct(matchingProduct.id)}}>
@@ -69,7 +82,7 @@ export function OrderSummary({ cartList, selectedDeliveryOptions, handleDelivery
                           name={`delivery-option-${productId}`} // Ensure radio inputs are grouped by product
                           id={`delivery-option-${productId}-${deliveryOption.id}`}
                           value={deliveryOption.id}
-                          checked={selectedDeliveryOptions[productId] === deliveryOption.id}
+                          checked={deliveryOptionId === deliveryOption.id}
                           onChange={() => handleDeliveryOptionChange(productId, deliveryOption.id)}
                         />
                         <label htmlFor={`delivery-option-${productId}-${deliveryOption.id}`}>

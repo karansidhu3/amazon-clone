@@ -63,6 +63,22 @@ class Cart{
     this.#notifyListeners();
   }
 
+  updateQuantity(productId, quantity) {
+    let matchingItem;
+  
+    this.cartItems.forEach((cartItem) => {
+      if (cartItem.productId === productId) {
+        matchingItem = cartItem;
+      }
+    });
+  
+    if (matchingItem) {
+      matchingItem.quantity = quantity; // Update quantity
+      this.saveToStorage(); // Save changes to local storage
+      this.#notifyListeners(); // Notify listeners (if necessary)
+    }
+  }
+
   checkQuantity(){
     let totalQuantity = 0;
 
