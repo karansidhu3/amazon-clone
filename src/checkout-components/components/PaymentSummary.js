@@ -2,7 +2,7 @@ import React from "react";
 import formatCurrency from "../../utils/money";
 
 
-export function PaymentSummary({ productCosts, shippingCosts, cart }) {
+export function PaymentSummary({ productCosts, shippingCosts, cart, placeOrder }) {
 
   const totalBeforeTax = productCosts + shippingCosts;
   const estimatedTax = totalBeforeTax * 0.1;
@@ -40,7 +40,7 @@ export function PaymentSummary({ productCosts, shippingCosts, cart }) {
         <div className="payment-summary-money">${formatCurrency(orderTotal)}</div>
       </div>
 
-      <button className="place-order-button button-primary">
+      <button className="place-order-button button-primary" onClick={() => {placeOrder()}}>
         Place your order
       </button>
     </div>

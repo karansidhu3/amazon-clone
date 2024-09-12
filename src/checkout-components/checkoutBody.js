@@ -4,6 +4,7 @@ import { OrderSummary } from "./components/OrderSummary";
 import { cart } from "../data/cart";
 import { getProduct, loadProductsFetch } from "../data/products";
 import { getDeliveryOption } from "../data/deliveryOptions";
+import { addOrder } from "../data/orders";
 import "../styles/checkout/checkout.css";
 
 
@@ -30,6 +31,27 @@ export function CheckoutBody(){
       setAmount(initialAmounts);
     });
   }, []);
+
+  const placeOrder = async() => {
+    try{ 
+      const response = await fetch('https://supersimplebackend.dev/orders', {  // sends the cart info to backend
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cart: cart
+        })
+      });
+  
+      const order = await response.json(); // waits for response containing order info
+      addOrder(order); // adds order
+    }
+    catch(error){
+      console.log('Unexpected Error. Try again later.');
+    }
+    window.location.href = 'orders';
+  }
 
   const handleButtonClick = (productId) => {
     setIsEditing((prevIsEditing) => ({
@@ -91,8 +113,6 @@ export function CheckoutBody(){
     setShippingCosts(totalShippingCost);
   };
 
-  console.log(cart.cartItems);
-
   return (
     <div className="checkout-main">
       <div className="page-title">Review your order</div>
@@ -116,6 +136,7 @@ export function CheckoutBody(){
             productCosts={productCosts} 
             shippingCosts={shippingCosts} 
             cart={cart}
+            placeOrder={placeOrder}
           />
         </div>
       </div>
