@@ -30,7 +30,7 @@ The **Amazon Clone** is a front-end web application designed to mimic the functi
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/amazon-clone.git
+   git clone https://github.com/karansidhu3/amazon-clone.git
    cd amazon-clone
    ```
 2. **Install Dependencies**:
