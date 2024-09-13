@@ -38,7 +38,7 @@ export function Header(){
       </div>
 
       <div className="amazon-header-right-section">
-        <a className="orders-link header-link" href="orders.html">
+        <a className="orders-link header-link" href="orders">
           <span className="returns-text">Returns</span>
           <span className="orders-text">& Orders</span>
         </a>

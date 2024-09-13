@@ -89,6 +89,11 @@ class Cart{
     return totalQuantity;
   }
 
+  emptyCart(){
+    this.cartItems = []
+    this.saveToStorage();
+  }
+
   updateDeliveryOption(productId, deliveryOptionId){ // function gets product id to know which items delivery option is being changed
     let matchingItem;
   

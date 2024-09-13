@@ -51,6 +51,7 @@ export function CheckoutBody(){
       console.log('Unexpected Error. Try again later.');
     }
     window.location.href = 'orders';
+    cart.emptyCart()
   }
 
   const handleButtonClick = (productId) => {

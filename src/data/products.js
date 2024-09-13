@@ -8,7 +8,7 @@ export function getProduct(productId){
       matchingItem = productItem;
     }
   });
-
+  
   return matchingItem
 }
 

@@ -93,10 +93,10 @@
   border-bottom-right-radius: 8px;
 
   display: grid;
-  grid-template-columns: 110px 1fr 220px;
+  grid-template-columns: 110px 1fr 220px; /* Image, details, actions */
   column-gap: 35px;
-  row-gap: 60px;
-  align-items: center;
+  row-gap: 50px;
+  align-items: start; /* Aligns items to the start of the row */
 }
 
 @media (max-width: 800px) {
@@ -113,8 +113,19 @@
   }
 }
 
+.order-product-item {
+  display: contents; /* Allows each product section to be part of the grid layout */
+}
+
 .orders-product-image-container {
-  text-align: center;
+  grid-column: 1; /* Image takes the first column */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orders-product-details {
+  grid-column: 2; /* Product details in the second column */
 }
 
 .orders-product-image-container img {
@@ -152,7 +163,10 @@
 }
 
 .orders-product-actions {
-  align-self: start;
+  grid-column: 3; /* Actions take the third column */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .orders-track-package-button {
@@ -183,8 +197,10 @@
 
 @media (max-width: 450px) {
   .orders-product-image-container {
-    text-align: center;
-    margin-bottom: 25px;
+    grid-column: 1; /* Image takes the first column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .orders-product-image-container img {
