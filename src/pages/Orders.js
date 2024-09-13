@@ -3,6 +3,7 @@ import { Header } from "../amazon-components/Header.js";
 import { orders } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import { cart } from "../data/cart.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import "../styles/orders-page/orders.css";
 
 export function Orders() {
@@ -64,7 +65,7 @@ export function Orders() {
                       </div>
                       <div className="orders-product-details">
                         <div className="orders-product-name">{prodInfo.name}</div>
-                        <div className="orders-product-delivery-date">Arriving on: August 15</div>
+                        <div className="orders-product-delivery-date">Arriving on: {dayjs(product.estimatedDeliveryTime).format('MMMM D')}</div>
                         <div className="orders-product-quantity">Quantity: {product.quantity}</div>
                         <button className="orders-buy-again-button button-primary"  onClick={() => {buyAgain(product.productId)}}>
                           <img className="orders-buy-again-icon" src="images/icons/buy-again.png" />
