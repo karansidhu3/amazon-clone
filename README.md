@@ -4,6 +4,8 @@
 
 The **Amazon Clone** is a front-end web application designed to mimic the functionality of Amazon’s e-commerce platform. This project demonstrates my skills in **HTML**, **CSS**, **JavaScript**, and **React**. The application focuses on dynamic product listings, a responsive shopping cart, and order history—all built using modern web technologies.
 
+[Link to Video Demo](https://drive.google.com/file/d/185RPC7H0Ssz4BaKPF7JzT3SS8allWcuU/view?usp=sharing)
+
 ## Features
 
 - **Product Listings**: Display a list of products dynamically fetched from a mock API.
